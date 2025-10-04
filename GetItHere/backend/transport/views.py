@@ -12,6 +12,8 @@ from rest_framework.response import Response
 from .models import Stop, Route, Trip, StopTime, Deal
 from .serializers import StopSerializer, RouteSerializer, TripSerializer, StopTimeSerializer
 
+from .average_delay import update_average_delay
+
 
 class StopViewSet(viewsets.ModelViewSet):
     queryset = Stop.objects.all()
@@ -72,8 +74,10 @@ def add_delay_record(request):
             expected_time = parse_datetime(data.get("expectedTime"))
             actual_time = parse_datetime(data.get("actualTime"))
             direction_value = data.get("direction")
+
             # Oblicz opóźnienie (w minutach)
             delay = (actual_time - expected_time).total_seconds() / 60.0
+            int_delay = int(round(delay))
 
             # Utwórz nowy rekord
             Deal.objects.create(
@@ -81,11 +85,22 @@ def add_delay_record(request):
                 stopId=stop_id,
                 expectedTime=expected_time,
                 actualTime=actual_time,
-                delay=int(delay),  # upewniamy się, że jest int
+                delay=int_delay,  # store rounded int minutes
                 direction=direction_value  # np. 0 lub 1
             )
 
-            return JsonResponse({"status": "success", "delay": delay})
+            # Update HistoricalData (create/refresh average) — don't let failures break the response
+            try:
+                if direction_value is not None:
+                    update_average_delay(route_id, stop_id, int(direction_value))
+                else:
+                    # if direction missing, skip historical update (or choose default)
+                    pass
+            except Exception:
+                # swallow to keep API stable; check logs when debugging
+                pass
+
+            return JsonResponse({"status": "success", "delay": int_delay})
 
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
