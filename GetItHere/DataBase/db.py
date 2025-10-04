@@ -4,7 +4,7 @@ con = sqlite3.connect("app.db")
 con.execute("PRAGMA foreign_keys = ON")
 cur = con.cursor()
 
-with open("../../../../../Downloads/dbstruct.sql", "r", encoding="utf-8") as f:
+with open("dbstruct.sql", "r", encoding="utf-8") as f:
     cur.executescript(f.read())
 
 with open("../../Routes_and_stops/KRK_A/stops.txt", "r", encoding="utf-8") as f:
