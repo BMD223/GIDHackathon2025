@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Stop, Route, Trip, StopTime
+from .models import Stop, Route, Trip, StopTime, HistoricalData
 
 
 class StopSerializer(serializers.ModelSerializer):
@@ -30,3 +30,24 @@ class TripSerializer(serializers.ModelSerializer):
         model = Trip
         fields = ['tripId', 'route', 'route_info', 'route_start_stop', 'route_end_stop']
 
+
+class HistoricalDataSerializer(serializers.ModelSerializer):
+    route_info = RouteSerializer(source='route', read_only=True)
+    stop_info = StopSerializer(source='stop', read_only=True)
+    route_line_number = serializers.CharField(source='route.lineNumber', read_only=True)
+    stop_name = serializers.CharField(source='stop.stopName', read_only=True)
+
+    class Meta:
+        model = HistoricalData
+        fields = [
+            'id',
+            'route',
+            'stop',
+            'direction',
+            'averageDelay',
+            'timePeriod',
+            'route_info',
+            'stop_info',
+            'route_line_number',
+            'stop_name'
+        ]

@@ -24,6 +24,7 @@ router.register(r'stops', views.StopViewSet)
 router.register(r'routes', views.RouteViewSet)
 router.register(r'trips', views.TripViewSet)
 router.register(r'stop-times', views.StopTimeViewSet)
+router.register(r'historical', views.HistoricalDataViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

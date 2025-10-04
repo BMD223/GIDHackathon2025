@@ -1,5 +1,6 @@
 import json
 
+from django.db.models import Avg
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils.dateparse import parse_datetime
@@ -9,8 +10,8 @@ from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import Stop, Route, Trip, StopTime, Deal
-from .serializers import StopSerializer, RouteSerializer, TripSerializer, StopTimeSerializer
+from .models import Stop, Route, Trip, StopTime, Deal, HistoricalData
+from .serializers import StopSerializer, RouteSerializer, TripSerializer, StopTimeSerializer, HistoricalDataSerializer
 
 from .average_delay import update_average_delay
 
@@ -106,3 +107,56 @@ def add_delay_record(request):
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
     return JsonResponse({"error": "Only POST method allowed"}, status=405)
+
+
+
+class HistoricalDataViewSet(viewsets.ModelViewSet):
+    queryset = HistoricalData.objects.select_related('route', 'stop').all()
+    serializer_class = HistoricalDataSerializer
+    @action(detail=False, methods=['get'])
+    def average_delay(self, request):
+        route_id = request.query_params.get('route_id')
+        stop_id = request.query_params.get('stop_id')
+        direction = request.query_params.get('direction')
+
+        # Walidacja parametrów
+        if not all([route_id, stop_id, direction]):
+            return Response({'error': 'route_id, stop_id and direction parameters are required'}, status=400)
+
+        # Filtrowanie danych
+        qs = self.get_queryset().filter(route_id=route_id, stop_id=stop_id, direction=direction)
+
+        # Obliczenie średniego opóźnienia
+        avg_delay = qs.aggregate(avg_delay=Avg('averageDelay'))['avg_delay']
+
+        if avg_delay is None:
+            return Response({'message': 'No data found for given parameters'}, status=404)
+
+        return Response({
+            'average_delay': round(avg_delay, 2)
+        })
+
+class HistoricalDataViewSet(viewsets.ModelViewSet):
+    queryset = HistoricalData.objects.select_related('route', 'stop').all()
+    serializer_class = HistoricalDataSerializer
+    @action(detail=False, methods=['get'])
+    def average_by_route(self, request):
+        route_id = request.query_params.get('route_id')
+        direction = request.query_params.get('direction')
+
+        # Walidacja parametrów
+        if not all([route_id, direction]):
+            return Response({'error': 'route_id and direction parameters are required'}, status=400)
+
+        # Filtrowanie danych
+        qs = self.get_queryset().filter(route_id=route_id, direction=direction)
+
+        # Oblicz średnią z kolumny averageDelay
+        avg_delay = qs.aggregate(avg_delay=Avg('averageDelay'))['avg_delay']
+
+        if avg_delay is None:
+            return Response({'message': 'No data found for given route and direction'}, status=404)
+
+        return Response({
+            'average_delay': round(avg_delay, 2)
+        })
