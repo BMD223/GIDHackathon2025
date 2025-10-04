@@ -7,3 +7,7 @@ class Deal(models.Model):
     actualTime = models.DateTimeField()
     delay = models.IntegerField()  # zmienione na integer
     direction = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'delays'  # używamy istniejącej tabeli
+        managed = False
