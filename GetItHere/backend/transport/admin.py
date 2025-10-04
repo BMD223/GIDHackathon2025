@@ -10,16 +10,28 @@ class StopAdmin(admin.ModelAdmin):
 
 @admin.register(Route)
 class RouteAdmin(admin.ModelAdmin):
-    list_display = ['routeId', 'lineNumber,', 'vehicleType']
+    list_display = ['routeId', 'lineNumber', 'startStop', 'endStop']
     search_fields = ['routeId', 'lineNumber']
-    list_filter = ['vehicleType']
+    # vehicleType does not exist on Route; remove invalid filter
+    # If you later add a vehicle_type field, you can re-enable filtering:
+    # list_filter = ['vehicle_type']
+    list_filter = ['lineNumber']
 
 
 @admin.register(Trip)
 class TripAdmin(admin.ModelAdmin):
-    list_display = ['tripId', 'route', 'startStop', 'endStop']
-    search_fields = ['tripId', 'startStop', 'endStop']
+    # Trip doesn't have startStop/endStop fields; expose route's stops via methods
+    list_display = ['tripId', 'route', 'route_start_stop', 'route_end_stop']
+    search_fields = ['tripId', 'route__routeId', 'route__lineNumber']
     raw_id_fields = ['route']
+
+    @admin.display(description='Start Stop', ordering='route__startStop')
+    def route_start_stop(self, obj):
+        return getattr(obj.route, 'startStop', None)
+
+    @admin.display(description='End Stop', ordering='route__endStop')
+    def route_end_stop(self, obj):
+        return getattr(obj.route, 'endStop', None)
 
 
 @admin.register(StopTime)

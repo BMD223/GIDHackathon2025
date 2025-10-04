@@ -4,8 +4,8 @@ from django.db import models
 class Stop(models.Model):
     stopId = models.CharField(max_length=100, primary_key=True, db_column='stopId')
     name = models.CharField(max_length=255)
-    lat = models.FloatField()
-    lon = models.FloatField()
+    lat = models.FloatField(null=True, blank=True)
+    lon = models.FloatField(null=True, blank=True)
 
     class Meta:
         db_table = 'stops'
@@ -17,36 +17,62 @@ class Stop(models.Model):
 class Route(models.Model):
     routeId = models.CharField(max_length=100, primary_key=True, db_column='routeId')
     lineNumber = models.IntegerField(db_column='lineNumber')
-    vehicleType = models.CharField(max_length=10, db_column='vehicleType')
+    startStop = models.CharField(max_length=255, null=True, blank=True, db_column='startStop')
+    endStop = models.CharField(max_length=255, null=True, blank=True, db_column='endStop')
 
     class Meta:
         db_table = 'routes'
+        ordering = ['lineNumber', 'routeId']
 
     def __str__(self):
-        return f"Line {self.lineNumber} ({self.vehicleType})"
+        return f"Line {self.lineNumber}"
 
 
 class Trip(models.Model):
     tripId = models.CharField(max_length=100, primary_key=True, db_column='tripId')
     route = models.ForeignKey(Route, on_delete=models.CASCADE, db_column='routeId', related_name='trips')
-    startStop = models.CharField(max_length=255, db_column='startStop')
     endStop = models.CharField(max_length=255, db_column='endStop')
 
     class Meta:
         db_table = 'trips'
 
     def __str__(self):
-        return f"{self.tripId}: {self.startStop} → {self.endStop}"
+        return f"{self.tripId} ({self.route_id} → {self.endStop})"
 
 
 class StopTime(models.Model):
-    trip = models.ForeignKey(Trip, on_delete=models.CASCADE, db_column='tripId', related_name='stop_times')
+    id = models.BigAutoField(primary_key=True, db_column='stopTimeId')
     stop = models.ForeignKey(Stop, on_delete=models.CASCADE, db_column='stopId', related_name='stop_times')
-    expectedTime = models.CharField(max_length=20, db_column='expectedTime')
+    expectedTime = models.CharField(max_length=32, db_column='expectedTime')
+    trip = models.ForeignKey(Trip, on_delete=models.CASCADE, db_column='tripId', related_name='stop_times')
 
     class Meta:
         db_table = 'stopTimes'
-        unique_together = [['trip', 'stop', 'expectedTime']]
 
     def __str__(self):
         return f"{self.trip_id} at {self.stop_id}: {self.expectedTime}"
+
+
+class Delay(models.Model):
+    id = models.BigAutoField(primary_key=True, db_column='delayId')
+    route = models.ForeignKey(Route, on_delete=models.CASCADE, db_column='routeId', related_name='delays')
+    stop = models.ForeignKey(Stop, on_delete=models.CASCADE, db_column='stopId', related_name='delays')
+    direction = models.IntegerField(db_column='direction')
+    expectedTime = models.TimeField(null=True, blank=True, db_column='expectedTime')
+    actualTime = models.TimeField(null=True, blank=True, db_column='actualTime')
+    delay = models.IntegerField(null=True, blank=True, db_column='delay')
+
+    class Meta:
+        db_table = 'delays'
+
+
+class HistoricalData(models.Model):
+    id = models.BigAutoField(primary_key=True, db_column='historicalDataId')
+    route = models.ForeignKey(Route, on_delete=models.CASCADE, db_column='routeId', related_name='historical_data')
+    stop = models.ForeignKey(Stop, on_delete=models.CASCADE, db_column='stopId', related_name='historical_data')
+    direction = models.IntegerField(db_column='direction')
+    averageDelay = models.IntegerField(null=True, blank=True, db_column='averageDelay')
+    timePeriod = models.TimeField(null=True, blank=True, db_column='timePeriod')
+
+    class Meta:
+        db_table = 'historicalData'
