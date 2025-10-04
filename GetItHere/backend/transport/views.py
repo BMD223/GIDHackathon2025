@@ -63,6 +63,13 @@ class StopTimeViewSet(viewsets.ModelViewSet):
         qs = self.get_queryset().filter(stop_id=stop_id)
         return Response(self.get_serializer(qs, many=True).data)
 
+    @action(detail=False, methods=['get'])
+    def by_trip(self, request):
+        trip_id = request.query_params.get('trip_id')
+        if not trip_id:
+            return Response({'error': 'trip_id parameter required'}, status=400)
+        qs = self.get_queryset().filter(trip_id=trip_id).order_by('expectedTime')
+        return Response(self.get_serializer(qs, many=True).data)
 @csrf_exempt  # tylko do testów; w produkcji użyj CSRF tokena!
 def add_delay_record(request):
     if request.method == "POST":

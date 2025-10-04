@@ -1,0 +1,5 @@
+backend/Include
+backend/Lib
+backend/Scripts
+backend/venv
+**/__pycache__

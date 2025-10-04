@@ -28,7 +28,7 @@ class TripSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trip
-        fields = ['tripId', 'route', 'route_info', 'route_start_stop', 'route_end_stop']
+        fields = ['tripId', 'route','endStop', 'route_info', 'route_start_stop', 'route_end_stop']
 
 
 class HistoricalDataSerializer(serializers.ModelSerializer):

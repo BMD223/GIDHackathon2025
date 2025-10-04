@@ -3,12 +3,27 @@ import './App.css';
 import BusHeatmap from './Components/HeatMap';
 import DelayForm from './Components/DelayForm';
 import IncidentForm from './Components/IncidentForm';
-
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 function App() {
   const [activeForm, setActiveForm] = useState(null);
 
   if (!activeForm) {
     return (
+      <BrowserRouter>
+      {/* Navigation */}
+      <nav>
+        <Link to="/">Report incident</Link> |{" "}
+        <Link to="/heatmap">Heatmap</Link> |{" "}
+       
+      </nav>
+
+      {/* Routes */}
+      <Routes>
+        <Route path="/heatmap" element={<BusHeatmap />} />
+        {/* <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} /> */}
+      </Routes>
+    
       <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 flex items-center justify-center p-4">
         <div className="w-full max-w-2xl bg-white rounded-2xl shadow-lg p-10">
           <h1 className="text-4xl font-bold text-center text-purple-700 mb-8">
@@ -35,6 +50,7 @@ function App() {
           </div>
         </div>
       </div>
+      </BrowserRouter>
     );
   }
 
