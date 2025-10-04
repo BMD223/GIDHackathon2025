@@ -16,15 +16,15 @@ Including another URLconf
 """
 
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import StopViewSet, RouteViewSet, TripViewSet, StopTimeViewSet
+#from rest_framework.routers import DefaultRouter
+#from .views import StopViewSet, RouteViewSet, TripViewSet, StopTimeViewSet
 
-router = DefaultRouter()
-router.register(r"stops", StopViewSet)
-router.register(r"routes", RouteViewSet)
-router.register(r"trips", TripViewSet)
-router.register(r"stop-times", StopTimeViewSet)
+#router = DefaultRouter()
+#router.register(r"stops", StopViewSet)
+#router.register(r"routes", RouteViewSet)
+#router.register(r"trips", TripViewSet)
+#router.register(r"stop-times", StopTimeViewSet)
 
 urlpatterns = [
-    path("api/", include(router.urls)),
+    path('api/', include('delays.urls')),
 ]
