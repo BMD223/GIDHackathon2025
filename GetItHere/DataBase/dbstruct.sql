@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS stopTimes (
 );
 
 CREATE TABLE IF NOT EXISTS delays (
-  delayId       INTEGER PRIMARY KEY,
+  delayId       INTEGER IDENTITY PRIMARY KEY,
   routeId       TEXT NOT NULL,
   stopId        TEXT NOT NULL,   -- e.g., '2025-10-04T07:35:00' or '07:35:00'
   direction     INTEGER NOT NULL,

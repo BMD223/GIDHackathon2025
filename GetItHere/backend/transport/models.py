@@ -63,3 +63,16 @@ class HistoricalData(models.Model):
 
     class Meta:
         db_table = 'historicalData'
+
+class Deal(models.Model):
+    delayId = models.BigAutoField(primary_key=True, db_column='delayId')  # map actual PK
+    routeId = models.CharField(max_length=50)
+    stopId = models.CharField(max_length=50)
+    expectedTime = models.DateTimeField()
+    actualTime = models.DateTimeField()
+    delay = models.IntegerField()  # zmienione na integer
+    direction = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'delays'  # używamy istniejącej tabeli
+        managed = False
