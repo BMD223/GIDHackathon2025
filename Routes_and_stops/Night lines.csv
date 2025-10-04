@@ -1,0 +1,54 @@
+﻿OBJECTID,Numer,Pętla_początkowa,Pętla_końcowa,Typ linii,Podtyp linii,relacja,Shape__Length
+52,62,Czerwone Maki P+R,Plac Centralny im. R.Reagana,tramwajowa,nocna,1,16650.0896522878
+53,62,Plac Centralny im. Ronalda Reagana,Czerwone Maki P+R,tramwajowa,nocna,2,16263.1499090238
+54,64,Bronowice Małe,Os. Piastów,tramwajowa,nocna,1,15181.2476085927
+55,64,Os. Piastów,Bronowice Małe,tramwajowa,nocna,2,15174.4957822861
+56,69,Nowy Bieżanów P+R,Górka Narodowa P+R,tramwajowa,nocna,1,18249.9296369731
+57,69,Górka Narodowa P+R,Nowy Bieżanów P+R,tramwajowa,nocna,2,18144.0951295356
+58,601,Zajezdnia Nowa Huta,Mydlniki Wapiennik P+R,autobusowa,nocna,1,26933.2623845913
+59,601,Mydlniki Wapiennik P+R,Zajezdnia Nowa Huta,autobusowa,nocna,2,27127.4299498706
+60,605,Złocień,Teatr Słowackiego,autobusowa,nocna,1,14439.7346647064
+61,605,Teatr Słowackiego,Złocień,autobusowa,nocna,2,13203.7521459008
+62,608,Os. Na Stoku,Os. Pod Fortem,autobusowa,nocna,1,30633.5072106086
+63,608,Os. Pod Fortem,Os. Na Stoku,autobusowa,nocna,2,30531.7616154842
+64,609,Dworzec Główny Wschód,Bielany,autobusowa,nocna,1,11853.5299724441
+65,609,Bielany,Dworzec Główny Wschód,autobusowa,nocna,2,12035.2669008855
+66,610,Prądnik Czerwony,Borek Fałęcki,autobusowa,nocna,11,17576.9580167681
+67,611,Czyżyny Dworzec,Chełmońskiego Pętla,autobusowa,nocna,1,17256.9306261674
+68,611,Chełmońskiego Pętla,Czyżyny Dworzec,autobusowa,nocna,2,17442.775079288
+69,612,Os. Podwawelskie,Tyniec Kamieniołom,autobusowa,nocna,1,11825.866246186
+70,612,Tyniec Kamieniołom,Os. Podwawelskie,autobusowa,nocna,2,11785.9291763419
+71,610,Sidzina,Prądnik Czerwony,autobusowa,nocna,2,24603.0835148395
+72,662,Czerwone Maki P+R,Plac Centralny im. R.Reagana,autobusowa,nocna,1,17102.5263946427
+73,662,Plac Centralny im. R.Reagana,Czerwone Maki P+R,autobusowa,nocna,2,16613.6893733668
+74,664,Bronowice Małe,Os. Piastów,autobusowa,nocna,1,15068.8517088647
+75,664,Os. Piastów,Bronowice Małe,autobusowa,nocna,2,16169.4156031625
+76,669,Górka Narodowa P+R,Nowy Bieżanów P+R,autobusowa,nocna,2,20462.4007788493
+77,669,Nowy Bieżanów P+R,Górka Narodowa P+R,autobusowa,nocna,1,19719.430003677
+78,902,Dworzec Główny Wschód,Kraków Airport,autobusowa,nocna,1,14237.6913488727
+79,902,Kraków Airport,Dworzec Główny Wschód,autobusowa,nocna,2,13960.3118426868
+80,903,Czerwone Maki P+R,Skawina,autobusowa,nocna,1,7777.53081007861
+81,903,Skawina,Czerwone Maki P+R,autobusowa,nocna,2,8057.73044375914
+82,904,Prądnik Biały,Wieliczka Miasto,autobusowa,nocna,1,25628.7120368801
+83,904,Wieliczka Miasto,Prądnik Biały,autobusowa,nocna,2,25857.6442827944
+84,910,Bronowice Małe,Będkowice Pętla,autobusowa,nocna,1,32753.149527013
+85,910,Będkowice Pętla,Bronowice Małe,autobusowa,nocna,2,33578.4280156299
+86,915,Łagiewniki,Świątniki Górne Urząd Miasta i Gminy,autobusowa,nocna,1,13266.1438484024
+87,915,Świątniki Górne Urząd Miasta i Gminy,Łagiewniki,autobusowa,nocna,2,18740.3600255948
+88,917,Górka Narodowa P+R,Górna Wieś Pętla,autobusowa,nocna,1,8214.84799595869
+89,917,Górna Wieś Pętla,Górka Narodowa P+R,autobusowa,nocna,2,8256.15746687003
+90,918,Bronowice Małe,Rudawa Rynek,autobusowa,nocna,1,18080.5353296336
+91,918,Rudawa Rynek,Bronowice Małe,autobusowa,nocna,2,18650.6299612272
+92,937,Krowodrza Górka P+R,Owczary Pętla,autobusowa,nocna,1,13037.0411125858
+93,937,Owczary Pętla,Krowodrza Górka P+R,autobusowa,nocna,2,12690.859387518
+94,948,Bronowice Małe,Zelków Pętla,autobusowa,nocna,1,18666.3287923764
+95,948,Zelków Pętla,Bronowice Małe,autobusowa,nocna,2,19477.4450324657
+96,601,Zajezdnia Bieńczyce,Mydlniki Wapiennik P+R,autobusowa,nocna,11,31171.3850811151
+97,601,Mydlniki Wapiennik P+R,Zajezdnia Bieńczyce,autobusowa,nocna,21,31839.1091236188
+98,603,Na Załęczu,Czyżyny Dworzec,autobusowa,nocna,1,3256.45825694788
+99,603,Czyżyny Dworzec,Na Załęczu,autobusowa,nocna,2,4021.22333757297
+100,610,Prądnik Czerwony,Sidzina,autobusowa,nocna,1,24459.0573013115
+101,610,Borek Fałęcki,Prądnik Czerwony,autobusowa,nocna,21,17431.7049394088
+102,664,Os. Piastów,Teatr Słowackiego,autobusowa,nocna,21,9584.62350432678
+103,603,Czyżyny Dworzec,Na Załęczu,autobusowa,nocna,1,3632.04873107807
+104,603,Na Załęczu,Czyżyny Dworzec,autobusowa,nocna,2,3257.57202138366
