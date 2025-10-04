@@ -53,19 +53,6 @@ class StopTime(models.Model):
         return f"{self.trip_id} at {self.stop_id}: {self.expectedTime}"
 
 
-class Delay(models.Model):
-    id = models.BigAutoField(primary_key=True, db_column='delayId')
-    route = models.ForeignKey(Route, on_delete=models.CASCADE, db_column='routeId', related_name='delays')
-    stop = models.ForeignKey(Stop, on_delete=models.CASCADE, db_column='stopId', related_name='delays')
-    direction = models.IntegerField(db_column='direction')
-    expectedTime = models.TimeField(null=True, blank=True, db_column='expectedTime')
-    actualTime = models.TimeField(null=True, blank=True, db_column='actualTime')
-    delay = models.IntegerField(null=True, blank=True, db_column='delay')
-
-    class Meta:
-        db_table = 'delays'
-
-
 class HistoricalData(models.Model):
     id = models.BigAutoField(primary_key=True, db_column='historicalDataId')
     route = models.ForeignKey(Route, on_delete=models.CASCADE, db_column='routeId', related_name='historical_data')
