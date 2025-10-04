@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+import BusHeatmap from './Components/HeatMap';
 import DelayForm from './Components/DelayForm';
 import IncidentForm from './Components/IncidentForm';
 
