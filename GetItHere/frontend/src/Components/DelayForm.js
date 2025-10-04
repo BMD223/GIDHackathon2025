@@ -11,7 +11,7 @@ const DelayForm = () => {
   const [formData, setFormData] = useState({
     vehicleType: '',
     lineNumber: '',
-    vehicleCode: '',
+    stop: '',
     timeOfArrival: getCurrentDateTimeLocal(),
     expectedTimeOfArrival: getCurrentDateTimeLocal(),
   });
@@ -70,15 +70,15 @@ const DelayForm = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Vehicle Code
+              Stop
             </label>
             <input
               type="text"
-              name="vehicleCode"
-              value={formData.vehicleCode}
+              name="stop"
+              value={formData.stop}
               onChange={handleChange}
               required
-              placeholder="e.g., ABC123"
+              placeholder="e.g., Pilotów"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
